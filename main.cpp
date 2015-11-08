@@ -4,15 +4,20 @@
 #include <iostream>
 #include <cmath>
 #include <fstream>
-#include <vector>
+#include <deque>
 #include "functions.h"
 using namespace std;
 
 int main()
 {
     ifstream fin;
-    vector<int> dividend, divisor;
+    deque<int> dividend, divisor, normalDivisor;
     string temporaryVal;
+    int numberMoves = 0;
+    int carry = 0;
+    int negativeValue = 0;
+    int numberShifts = 0;
+    int shiftLimit = 0;
 
     fin.open("data.txt");
 
@@ -22,28 +27,41 @@ int main()
     {
         dividend.push_back((temporaryVal.at(i)-'0'));
     }
-    for(int i = 0; i < dividend.size(); i++)
+    /*for(int i = 0; i < dividend.size(); i++)
         cout << dividend[i];
-    cout << endl;
+    cout << endl;*/
 
+    //Reset the current input stream in order to grab a new one.
     temporaryVal.clear();
     fin >> temporaryVal;
     for(int i = 0; i < temporaryVal.length(); i++)
     {
         divisor.push_back((temporaryVal.at(i)-'0'));
     }
-    for(int i = 0; i < divisor.size(); i++)
+    /*for(int i = 0; i < divisor.size(); i++)
         cout << divisor[i];
-    cout << endl;
+    cout << endl;*/
 
     fin.close();
 
-    int repeat = 0;
-    int halfOfDividend = (dividend.size()/2) - 1;
-    while(repeat < dividend.size())
-    {
+    normalize(divisor, numberMoves);
+    normalDivisor = divisor;
+    /*for(int i = 0; i < divisor.size(); i++)
+        cout << divisor[i];
+    cout << endl;*/
+    adjustDividend(dividend, numberMoves);
+    divisorComplement(divisor, negativeValue);
+    /*for(int i = 0; i < divisor.size(); i++)
+        cout << divisor[i];*/
 
+    shiftLimit = divisor.size() + 1;
+    while(numberShifts <= shiftLimit)
+    {
+        subtractDivisor(dividend, divisor, numberShifts, negativeValue, shiftLimit, normalDivisor);
+        cout << numberShifts << endl;
     }
+    for(int i = 0; i < dividend.size(); i++)
+       cout << dividend[0];
 
     return 0;
 }
