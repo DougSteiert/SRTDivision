@@ -8,7 +8,7 @@ using namespace std;
 void normalize(deque<int>& notNormalized, int& numberMoves);
 void adjustDividend(deque<int>& dividend, int& numberMoves);
 void divisorComplement(deque<int>& divisor, int& negative);
-void subtractDivisor(deque<int>& dividend, deque<int> divisor, int& numberShifts, int& negativeValue, int shiftLimit, deque<int>& normalDivisor);
+void subtractDivisor(deque<int>& dividend, deque<int> divisor, int& carry);
 void positiveResult(deque<int>& dividend, int& numberShifts, int shiftLimit);
 void negativeResult(deque<int>& dividend, int& numberShifts, int shiftLimit);
 

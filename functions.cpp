@@ -43,6 +43,10 @@ void divisorComplement(deque<int>& divisor, int& negative)
 
 void positiveResult(deque<int>& dividend, int& numberShifts, int shiftLimit)
 {
+    //Check to make sure we are not going to shift more than the desired amount of times.
+    if(numberShifts == shiftLimit)
+        return;
+
     if(numberShifts <= shiftLimit)
     {
         dividend.pop_front();
@@ -60,6 +64,10 @@ void positiveResult(deque<int>& dividend, int& numberShifts, int shiftLimit)
 
 void negativeResult(deque<int>& dividend, int& numberShifts, int shiftLimit)
 {
+    //Check to make sure we are not going to shift more than the desired amount of times.
+    if(numberShifts == shiftLimit)
+        return;
+
     if(numberShifts <= shiftLimit)
     {
         dividend.pop_front();
@@ -75,9 +83,8 @@ void negativeResult(deque<int>& dividend, int& numberShifts, int shiftLimit)
 }
 
 // This function will subtract the divisor from the dividend.
-void subtractDivisor(deque<int>& dividend, deque<int> divisor, int& numberShifts, int& negativeValue, int shiftLimit, deque<int>& normalDivisor)
+void subtractDivisor(deque<int>& dividend, deque<int> divisor, int& carry)
 {
-    int carry = 0;
     int halfOfDividend = (dividend.size()/2);
     for(int i = (halfOfDividend -1); i >= 0; i--)
     {
@@ -121,17 +128,5 @@ void subtractDivisor(deque<int>& dividend, deque<int> divisor, int& numberShifts
             dividend[i] = 1;
             carry = 0;
         }
-    }
-
-    if(carry == 1 && negativeValue == 1)
-    {
-        negativeValue = 0;
-        positiveResult(dividend, numberShifts, shiftLimit);
-    }
-    else
-    {
-        negativeValue = 1;
-        negativeResult(dividend, numberShifts, shiftLimit);
-        subtractDivisor(dividend, normalDivisor, numberShifts, negativeValue, shiftLimit, normalDivisor);
     }
 }

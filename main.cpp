@@ -57,7 +57,20 @@ int main()
     shiftLimit = divisor.size() + 1;
     while(numberShifts <= shiftLimit)
     {
-        subtractDivisor(dividend, divisor, numberShifts, negativeValue, shiftLimit, normalDivisor);
+        subtractDivisor(dividend, divisor, carry);
+        if(carry == 1 && negativeValue == 1)
+        {
+            negativeValue = 0;
+            carry = 0;
+            positiveResult(dividend, numberShifts, shiftLimit);
+        }
+        else
+        {
+            negativeValue = 1;
+            carry = 0;
+            negativeResult(dividend, numberShifts, shiftLimit);
+            subtractDivisor(dividend, normalDivisor, carry);
+        }
         cout << numberShifts << endl;
     }
     for(int i = 0; i < dividend.size(); i++)
