@@ -18,6 +18,7 @@ int main()
     int negativeValue = 0;
     int numberShifts = 0;
     int shiftLimit = 0;
+    int calculationTime = 0;
 
     fin.open("data.txt");
 
@@ -46,35 +47,64 @@ int main()
 
     normalize(divisor, numberMoves);
     normalDivisor = divisor;
-    /*for(int i = 0; i < divisor.size(); i++)
+    cout << "The normalized divisor is: ";
+    for(int i = 0; i < divisor.size(); i++)
         cout << divisor[i];
-    cout << endl;*/
+    cout << endl;
     adjustDividend(dividend, numberMoves);
-    divisorComplement(divisor, negativeValue);
-    /*for(int i = 0; i < divisor.size(); i++)
-        cout << divisor[i];*/
+    cout << "The adjusted dividend is: ";
+    for(int i = 0; i < dividend.size(); i++)
+        cout << dividend[i];
+    cout << endl;
+    divisorComplement(divisor, negativeValue, calculationTime);
+    cout << "The 2's complement of the divisor is: ";
+    for(int i = 0; i < divisor.size(); i++)
+        cout << divisor[i];
+
+    cout << endl;
 
     shiftLimit = divisor.size() + 1;
-    while(numberShifts <= shiftLimit)
+    initialShift(dividend, numberShifts, calculationTime);
+    cout << "The dividend after shift of 0's is: ";
+    for(int i = 0; i < dividend.size(); i++)
+        cout << dividend[i];
+    cout << endl << endl;
+    cout << divisor.size() << endl;
+    while(numberShifts < shiftLimit)
     {
+        cout << "The current dividend is: ";
+        for(int i = 0; i < dividend.size(); i++)
+            cout << dividend[i];
+        cout << endl << "The current divisor is: ";
+        for(int i = 0; i < divisor.size(); i++)
+            cout << divisor[i];
+        cout << endl;
+        cout << numberShifts << endl;
         subtractDivisor(dividend, divisor, carry);
-        if(carry == 1 && negativeValue == 1)
+        cout << "The carry is: " << carry << endl << endl;
+        if(carry == 1)
         {
-            negativeValue = 0;
             carry = 0;
-            positiveResult(dividend, numberShifts, shiftLimit);
+            positiveResult(dividend, numberShifts, shiftLimit, calculationTime);
         }
         else
         {
-            negativeValue = 1;
             carry = 0;
-            negativeResult(dividend, numberShifts, shiftLimit);
-            subtractDivisor(dividend, normalDivisor, carry);
+            negativeResult(dividend, numberShifts, shiftLimit, normalDivisor, carry, calculationTime);
+            if(numberShifts == shiftLimit && carry == 1)
+            {
+                carry = 0;
+                dividend.pop_back();
+                dividend.push_front(1);
+                subtractDivisor(dividend, normalDivisor, carry);
+            }
+            carry = 0;
         }
-        cout << numberShifts << endl;
+
     }
+    cout << "Calculation time: " << calculationTime << "t" << endl;
     for(int i = 0; i < dividend.size(); i++)
-       cout << dividend[0];
+       cout << dividend[i];
 
     return 0;
 }
