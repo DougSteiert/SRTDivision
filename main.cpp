@@ -20,17 +20,16 @@ int main()
     int shiftLimit = 0;
     int calculationTime = 0;
 
+    //Open up the filestream that contains the data.
     fin.open("data.txt");
 
     fin >> temporaryVal;
+
     //Assume first value is dividend.
     for(int i = 0; i < temporaryVal.length(); i++)
     {
         dividend.push_back((temporaryVal.at(i)-'0'));
     }
-    /*for(int i = 0; i < dividend.size(); i++)
-        cout << dividend[i];
-    cout << endl;*/
 
     //Reset the current input stream in order to grab a new one.
     temporaryVal.clear();
@@ -39,49 +38,19 @@ int main()
     {
         divisor.push_back((temporaryVal.at(i)-'0'));
     }
-    /*for(int i = 0; i < divisor.size(); i++)
-        cout << divisor[i];
-    cout << endl;*/
 
     fin.close();
 
     normalize(divisor, numberMoves);
     normalDivisor = divisor;
-    cout << "The normalized divisor is: ";
-    for(int i = 0; i < divisor.size(); i++)
-        cout << divisor[i];
-    cout << endl;
     adjustDividend(dividend, numberMoves);
-    cout << "The adjusted dividend is: ";
-    for(int i = 0; i < dividend.size(); i++)
-        cout << dividend[i];
-    cout << endl;
     divisorComplement(divisor, negativeValue, calculationTime);
-    cout << "The 2's complement of the divisor is: ";
-    for(int i = 0; i < divisor.size(); i++)
-        cout << divisor[i];
-
-    cout << endl;
-
     shiftLimit = divisor.size() + 1;
     initialShift(dividend, numberShifts, calculationTime);
-    cout << "The dividend after shift of 0's is: ";
-    for(int i = 0; i < dividend.size(); i++)
-        cout << dividend[i];
-    cout << endl << endl;
-    cout << divisor.size() << endl;
+
     while(numberShifts < shiftLimit)
     {
-        cout << "The current dividend is: ";
-        for(int i = 0; i < dividend.size(); i++)
-            cout << dividend[i];
-        cout << endl << "The current divisor is: ";
-        for(int i = 0; i < divisor.size(); i++)
-            cout << divisor[i];
-        cout << endl;
-        cout << numberShifts << endl;
         subtractDivisor(dividend, divisor, carry);
-        cout << "The carry is: " << carry << endl << endl;
         if(carry == 1)
         {
             carry = 0;
