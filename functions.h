@@ -54,5 +54,4 @@ void negativeResult(deque<int>& dividend, int& numberShifts, int shiftLimit, deq
 //performed.
 void initialShift(deque<int>& dividend, int& numberShifts, int& calculationTime);
 
-#include "functions.cpp"
 #endif // FUNCTIONS_H_INCLUDED

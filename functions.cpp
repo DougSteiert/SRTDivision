@@ -1,3 +1,8 @@
+#include <deque>
+using namespace std;
+#include "functions.h"
+
+
 // This normalizes the divisor before taking the 2's complement.
 void normalize(deque<int>& notNormalized, int& numberMoves)
 {

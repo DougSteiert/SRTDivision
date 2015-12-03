@@ -24,11 +24,11 @@ int main()
     cout << "Please enter the file name you wish to access data from: ";
     cin >> fileName;
     cout << endl;
-    fin.open("data.txt");
+    fin.open(fileName);
 
     //Checks to see if the file can be opened, if not an error message is
     //displayed.
-    if(fin.is_open())
+    if(fin)
     {
         //Iterates through all pairs of dividend and divisor that are in the
         //file.
